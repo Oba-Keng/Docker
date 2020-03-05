@@ -1,0 +1,23 @@
+version: "3.3"
+services:
+  postgres:
+    image: postgres:9.6
+    environment:
+      - POSTGRES_USER: user
+      - POSTGRES_PASSWORD: candy
+      - POSTGRES_DB: db
+    volumes:
+      - ./gitignore/postgresql:/var/lib/postgresql/data
+      - /my/own/datadir:/var/lib/psql
+    ports:
+      - 5432:5432
+    web:
+      image: clientsdb
+      depends_on:
+        - db
+      ports: "4000:4000"
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - 8080:8080
